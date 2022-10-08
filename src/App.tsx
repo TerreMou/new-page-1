@@ -1,24 +1,13 @@
 import { defineComponent } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
+import './App.scss'
 
 export const App = defineComponent({
   setup() {
     return () => (
-      <>
-        <header>
-          导航
-          <ul>
-            <li>
-              <RouterLink to="/">Bar</RouterLink>
-            </li>
-            <li>
-              <RouterLink to="/foo">Foo</RouterLink>
-            </li>
-          </ul>
-        </header>
+      <div>
         <RouterView></RouterView>
-        <footer>页尾</footer>
-      </>
+      </div>
     )
   },
 })
