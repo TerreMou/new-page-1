@@ -13,7 +13,7 @@ export const MainLayout = defineComponent({
   },
   setup: (props, context) => {
     return () => (
-      <>
+      <div>
         <nav class={s.navbar}>
           <span onClick={props.onClickIcon} class={s.icon_wrapper}>
             {context.slots.icon?.()}
@@ -21,7 +21,7 @@ export const MainLayout = defineComponent({
           <span class={s.title_wrapper}>{props.title}</span>
         </nav>
         {context.slots.default?.()}
-      </>
+      </div>
     )
   },
 })
