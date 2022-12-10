@@ -6,11 +6,10 @@ import { Popup, DatetimePicker } from 'vant'
 
 export const InputPad = defineComponent({
   setup: (props, context) => {
+    // 日期选择
     const now = new Date()
     const refDate = ref<Date>(now)
     const refDatePickerVisible = ref(false)
-    const refAmount = ref('0')
-
     const showDatePicker = () => {
       refDatePickerVisible.value = true
     }
@@ -22,7 +21,29 @@ export const InputPad = defineComponent({
       hideDatePicker()
     }
 
+    // 记账金额输入
+    const refAmount = ref('0')
     const appendText = (n: number | string) => {
+      const input = n.toString()
+      const dotIndex = refAmount.value.indexOf('.')
+      if (refAmount.value.length >= 13) return
+      if (dotIndex >= 0 && refAmount.value.length - dotIndex > 2) return // 保留小数点后两位
+      switch (input) {
+        case '.': {
+          if (dotIndex >= 0) return
+        }
+          break;
+        case '0': {
+          if (refAmount.value === '0') return
+        }
+          break;
+        default: {
+          if (refAmount.value === '0') {
+            refAmount.value = ''
+          }
+        }
+          break;
+      }
       refAmount.value += n.toString()
     }
     const buttons = [
@@ -37,7 +58,7 @@ export const InputPad = defineComponent({
       { text: '9', onClick: () => appendText(9) },
       { text: '0', onClick: () => appendText(0) },
       { text: '.', onClick: () => appendText('.') },
-      { text: '清空', onClick: () => {} },
+      { text: '清空', onClick: () => {refAmount.value = '0'} },
       { text: '提交', onClick: () => {} },
     ]
 
